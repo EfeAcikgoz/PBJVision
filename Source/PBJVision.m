@@ -1207,7 +1207,7 @@ typedef void (^PBJVisionBlock)();
     return [self supportsVideoCapture] && [self isCaptureSessionActive] && !_flags.changingModes && isDiskSpaceAvailable;
 }
 
-- (void)startVideoCapture
+- (void)startVideoCaptureWithName:(NSString*)videoName
 {
     if (![self _canSessionCaptureWithOutput:_currentOutput]) {
         DLog(@"session is not setup properly for capture");
@@ -1221,8 +1221,7 @@ typedef void (^PBJVisionBlock)();
         if (_flags.recording || _flags.paused)
             return;
 	
-        NSString *guid = [[NSUUID new] UUIDString];
-        NSString *outputPath = [NSString stringWithFormat:@"%@video_%@.mp4", NSTemporaryDirectory(), guid];
+        NSString *outputPath = [NSString stringWithFormat:@"%@%@%@", NSTemporaryDirectory(), videoName, @".mp4"];
         NSURL *outputURL = [NSURL fileURLWithPath:outputPath];
         if ([[NSFileManager defaultManager] fileExistsAtPath:outputPath]) {
             NSError *error = nil;

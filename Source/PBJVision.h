@@ -126,7 +126,7 @@ extern NSString * const PBJVisionVideoThumbnailKey;
 @property (nonatomic, readonly) Float64 capturedAudioSeconds;
 @property (nonatomic, readonly) Float64 capturedVideoSeconds;
 
-- (void)startVideoCapture;
+- (void)startVideoCaptureWithName:(NSString*)videoName;
 - (void)pauseVideoCapture;
 - (void)resumeVideoCapture;
 - (void)endVideoCapture;

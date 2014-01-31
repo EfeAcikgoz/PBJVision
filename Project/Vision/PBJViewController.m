@@ -234,7 +234,7 @@
         _instructionLabel.alpha = 0;
     } completion:^(BOOL finished) {
     }];
-    [[PBJVision sharedInstance] startVideoCapture];
+    [[PBJVision sharedInstance] startVideoCaptureWithName:@"Test"];
 }
 
 - (void)_pauseCapture
