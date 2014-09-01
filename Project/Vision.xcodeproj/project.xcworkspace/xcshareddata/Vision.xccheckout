@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>81FAD0CB-6EF3-4712-81B2-64F03B403587</string>
+	<string>9FC1B1C7-45EB-4845-BB1F-E00F3F13BE86</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Vision</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>F48A3B3E-82B1-4FE5-A788-AC891C0C7179</key>
-		<string>https://github.com/sarperdag/PBJVision.git</string>
+		<key>645C0B015356454326F1819B74AB8D8F40D6AC2B</key>
+		<string>https://github.com/piemonte/PBJVision.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Project/Vision.xcodeproj/project.xcworkspace</string>
+	<string>Project/Vision.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>F48A3B3E-82B1-4FE5-A788-AC891C0C7179</key>
+		<key>645C0B015356454326F1819B74AB8D8F40D6AC2B</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/sarperdag/PBJVision.git</string>
+	<string>https://github.com/piemonte/PBJVision.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>F48A3B3E-82B1-4FE5-A788-AC891C0C7179</string>
+	<string>645C0B015356454326F1819B74AB8D8F40D6AC2B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>F48A3B3E-82B1-4FE5-A788-AC891C0C7179</string>
+			<string>645C0B015356454326F1819B74AB8D8F40D6AC2B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>PBJVision</string>
 		</dict>

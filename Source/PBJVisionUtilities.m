@@ -1,8 +1,26 @@
 //
 //  PBJVisionUtilities.m
+//  Vision
 //
 //  Created by Patrick Piemonte on 5/20/13.
-//  Copyright (c) 2013. All rights reserved.
+//  Copyright (c) 2013-present, Patrick Piemonte, http://patrickpiemonte.com
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of
+//  this software and associated documentation files (the "Software"), to deal in
+//  the Software without restriction, including without limitation the rights to
+//  use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+//  the Software, and to permit persons to whom the Software is furnished to do so,
+//  subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+//  FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+//  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+//  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+//  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 #import "PBJVisionUtilities.h"
@@ -15,7 +33,7 @@
     CGPoint pointOfInterest = CGPointMake(.5f, .5f);
     CGSize frameSize = frame.size;
     
-    switch ([[PBJVision sharedInstance] cameraOrientation]) {
+    switch ([[PBJVision sharedInstance] previewOrientation]) {
         case PBJCameraOrientationPortrait:
             break;
         case PBJCameraOrientationPortraitUpsideDown:
@@ -98,6 +116,15 @@
     return nil;
 }
 
++ (AVCaptureDevice *)audioDevice
+{
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio];
+    if ([devices count] > 0)
+        return [devices objectAtIndex:0];
+    
+    return nil;
+}
+
 + (AVCaptureConnection *)connectionWithMediaType:(NSString *)mediaType fromConnections:(NSArray *)connections
 {
 	for ( AVCaptureConnection *connection in connections ) {
@@ -111,13 +138,41 @@
 	return nil;
 }
 
-+ (AVCaptureDevice *)audioDevice
++ (CMSampleBufferRef)createOffsetSampleBufferWithSampleBuffer:(CMSampleBufferRef)sampleBuffer usingTimeOffset:(CMTime)timeOffset
 {
-    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio];
-    if ([devices count] > 0)
-        return [devices objectAtIndex:0];
+    CMItemCount itemCount;
     
-    return nil;
+    OSStatus status = CMSampleBufferGetSampleTimingInfoArray(sampleBuffer, 0, NULL, &itemCount);
+    if (status) {
+        return NULL;
+    }
+    
+    CMSampleTimingInfo *timingInfo = (CMSampleTimingInfo *)malloc(sizeof(CMSampleTimingInfo) * (unsigned long)itemCount);
+    if (!timingInfo) {
+        return NULL;
+    }
+    
+    status = CMSampleBufferGetSampleTimingInfoArray(sampleBuffer, itemCount, timingInfo, &itemCount);
+    if (status) {
+        free(timingInfo);
+        timingInfo = NULL;
+        return NULL;
+    }
+    
+    for (CMItemCount i = 0; i < itemCount; i++) {
+        timingInfo[i].presentationTimeStamp = CMTimeSubtract(timingInfo[i].presentationTimeStamp, timeOffset);
+        timingInfo[i].decodeTimeStamp = CMTimeSubtract(timingInfo[i].decodeTimeStamp, timeOffset);
+    }
+    
+    CMSampleBufferRef offsetSampleBuffer;
+    CMSampleBufferCreateCopyWithNewTiming(kCFAllocatorDefault, sampleBuffer, itemCount, timingInfo, &offsetSampleBuffer);
+    
+    if (timingInfo) {
+        free(timingInfo);
+        timingInfo = NULL;
+    }
+    
+    return offsetSampleBuffer;
 }
 
 + (CGFloat)angleOffsetFromPortraitOrientationToOrientation:(AVCaptureVideoOrientation)orientation

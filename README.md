@@ -1,20 +1,20 @@
 ![PBJVision](https://raw.github.com/piemonte/PBJVision/master/pbj.gif)
 
-## PBJVision
+## Vision
 
-'PBJVision' is an iOS camera engine that supports touch-to-record video and photo capture. It is compatible both iOS 6 and iOS 7 as well as 64-bit. Pause and resume video capture is also possible without having to use a gesture like the sample project provides.
+Vision is an iOS camera engine that supports touch-to-record video, slow motion video (120 fps for supporting hardware, which is currently only iPhone 5S), and photo capture. It is compatible with both iOS 7 and iOS 8 but also supports 64-bit. Pause and resume video capture is also possible without having to use a touch gesture as the sample project provides.
 
-We created this at [DIY](http://www.diy.org) as a fun means for young people to author video. This same recording interaction was pioneered by Vine and also later adopted by Instagram.
+iOS 6 is supported in versions v0.3.2 and below but may slowly start dropping support future.
 
-If you need a video player, check out [PBJVideoPlayer](https://github.com/piemonte/PBJVideoPlayer).
+I created this component at [DIY](http://diy.org) as a fun means for kids to author video and share their skills. This same recording interaction was pioneered by [Vine](http://vine.co) and also [Instagram](http://instagram.com).
 
-Please review the [release history](https://github.com/piemonte/PBJVision/releases) for more information.  If you have questions, [github issues](https://github.com/piemonte/PBJVision/issues) is a great means to start a discussion, this allows others to benefit and chime in on the project too.
+Please review the [release history](https://github.com/piemonte/PBJVision/releases) for a summary of the latest changes and more information.
+
+[![Build Status](https://travis-ci.org/piemonte/PBJVision.svg?branch=master)](https://travis-ci.org/piemonte/PBJVision)
 
 ## Installation
 
 [CocoaPods](http://cocoapods.org) is the recommended method of installing PBJVision, just add the following line to your `Podfile`:
-
-#### Podfile
 
 ```ruby
 pod 'PBJVision'
@@ -86,6 +86,15 @@ pod 'PBJVision'
     }];
 }
 ```
+
+## Resources
+
+* [AV Foundation Programming Guide](https://developer.apple.com/library/ios/documentation/AudioVideo/Conceptual/AVFoundationPG/Articles/00_Introduction.html)
+* [PBJVideoPlayer, a simple iOS video player](https://github.com/piemonte/PBJVideoPlayer)
+
+## Contributing
+
+See the [CONTRIBUTING](https://github.com/piemonte/PBJVision/blob/master/CONTRIBUTING.md) file for information on how to collaborate and help out. The [github issues page](https://github.com/piemonte/PBJVision/issues) is a the place to file a bug, [Stack Overflow](http://stackoverflow.com/questions/tagged/pbjvision) is a great place to start a discussion and also allows others to benefit and chime-in too.
 
 ## License
 

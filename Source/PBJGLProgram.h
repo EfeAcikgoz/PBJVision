@@ -1,8 +1,8 @@
 //
-//  PBJVisionUtilities.h
+//  PBJGLProgram.h
 //  Vision
 //
-//  Created by Patrick Piemonte on 5/20/13.
+//  Created by Patrick Piemonte on 4/9/14.
 //  Copyright (c) 2013-present, Patrick Piemonte, http://patrickpiemonte.com
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -24,27 +24,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AVFoundation/AVFoundation.h>
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
 
-@interface PBJVisionUtilities : NSObject
+// common attribute names
+extern NSString * const PBJGLProgramAttributeVertex;
+extern NSString * const PBJGLProgramAttributeTextureCoord;
+extern NSString * const PBJGLProgramAttributeNormal;
 
-+ (CGPoint)convertToPointOfInterestFromViewCoordinates:(CGPoint)viewCoordinates inFrame:(CGRect)frame;
+// inspired by Jeff LaMarche, https://github.com/jlamarche/iOS-OpenGLES-Stuff
+@interface PBJGLProgram : NSObject
 
-+ (AVCaptureDevice *)captureDeviceForPosition:(AVCaptureDevicePosition)position;
-+ (AVCaptureDevice *)audioDevice;
+- (id)initWithVertexShaderName:(NSString *)vertexShaderName fragmentShaderName:(NSString *)fragmentShaderName;
 
-+ (AVCaptureConnection *)connectionWithMediaType:(NSString *)mediaType fromConnections:(NSArray *)connections;
+- (void)addAttribute:(NSString *)attributeName;
 
-+ (CMSampleBufferRef)createOffsetSampleBufferWithSampleBuffer:(CMSampleBufferRef)sampleBuffer usingTimeOffset:(CMTime)timeOffset;
+- (GLuint)attributeLocation:(NSString *)attributeName;
+- (int)uniformLocation:(NSString *)uniformName;
 
-+ (CGFloat)angleOffsetFromPortraitOrientationToOrientation:(AVCaptureVideoOrientation)orientation;
-
-+ (uint64_t)availableDiskSpaceInBytes;
-
-@end
-
-@interface NSString (PBJExtras)
-
-+ (NSString *)PBJformattedTimestampStringFromDate:(NSDate *)date;
+- (BOOL)link;
+- (void)use;
 
 @end
