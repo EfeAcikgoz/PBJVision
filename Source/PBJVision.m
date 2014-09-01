@@ -1661,7 +1661,7 @@ typedef void (^PBJVisionBlock)();
         if (_flags.recording || _flags.paused)
             return;
 	
-        NSString *outputFile = [NSString stringWithFormat:@"%@%@%@", NSTemporaryDirectory(), videoName, @".mp4"];
+        NSString *outputFile = [NSString stringWithFormat:@"%@%@", videoName, @".mp4"];
         
         if ([_delegate respondsToSelector:@selector(vision:willStartVideoCaptureToFile:)]) {
             outputFile = [_delegate vision:self willStartVideoCaptureToFile:outputFile];
