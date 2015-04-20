@@ -874,10 +874,13 @@ typedef void (^PBJVisionBlock)();
     [self removeObserver:self forKeyPath:@"currentDevice.torchMode"];
     [self removeObserver:self forKeyPath:@"currentDevice.flashAvailable"];
     [self removeObserver:self forKeyPath:@"currentDevice.torchAvailable"];
-
+    
+    // capture events KVO notifications
+    [_captureOutputPhoto removeObserver:self forKeyPath:@"capturingStillImage"];
+    
     // remove notification observers (we don't want to just 'remove all' because we're also observing background notifications
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-
+    
     // session notifications
     [notificationCenter removeObserver:self name:AVCaptureSessionRuntimeErrorNotification object:_captureSession];
     [notificationCenter removeObserver:self name:AVCaptureSessionDidStartRunningNotification object:_captureSession];
@@ -890,7 +893,7 @@ typedef void (^PBJVisionBlock)();
     
     // capture device notifications
     [notificationCenter removeObserver:self name:AVCaptureDeviceSubjectAreaDidChangeNotification object:nil];
-
+    
     _captureOutputPhoto = nil;
     _captureOutputAudio = nil;
     _captureOutputVideo = nil;
@@ -901,7 +904,7 @@ typedef void (^PBJVisionBlock)();
     _captureDeviceInputBack = nil;
     _captureDeviceFront = nil;
     _captureDeviceBack = nil;
-
+    
     _captureSession = nil;
     _currentDevice = nil;
     _currentInput = nil;
